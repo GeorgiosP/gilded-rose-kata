@@ -12,9 +12,9 @@ function update_quality() {
       items[i].name !== 'Aged Brie' &&
       items[i].name !== 'Backstage passes to a TAFKAL80ETC concert'
     ) {
+      is_conjured(items[i])
       if (items[i].quality > 0) {
         if (items[i].name !== 'Sulfuras, Hand of Ragnaros') {
-          is_conjured(items[i])
           items[i].quality = items[i].quality - 1
         }
       }
@@ -43,6 +43,7 @@ function update_quality() {
     if (items[i].sell_in < 0) {
       if (items[i].name !== 'Aged Brie') {
         if (items[i].name !== 'Backstage passes to a TAFKAL80ETC concert') {
+          is_conjured(items[i])
           if (items[i].quality > 0) {
             if (items[i].name !== 'Sulfuras, Hand of Ragnaros') {
               items[i].quality = items[i].quality - 1
@@ -61,13 +62,14 @@ function update_quality() {
 }
 
 is_conjured = item => {
-  if (item.name.includes('Conjured')) {
+  if (item.name.toLowerCase().includes('conjured')) {
     if (item.quality > 0) {
       item.quality = item.quality - 1
+      if (item.sell_in < 0) {
+        item.quality = item.quality - 1
+      }
     }
-    if (item.sell_in < 0) {
-      item.quality = item.quality - 1
-    }
+
     return item
   } else return item
 }

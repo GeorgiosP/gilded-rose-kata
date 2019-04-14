@@ -11,6 +11,14 @@ describe('Gilded Rose', function() {
     expect(items[0].quality).toEqual(2)
   })
 
+  it('should decrease by 2 and then 4', () => {
+    items = [new Item('conjured item', 1, 6)]
+    update_quality()
+    expect(items[0].quality).toEqual(4)
+    update_quality()
+    expect(items[0].quality).toEqual(0)
+  })
+
   it('should decrease by 2', () => {
     items = [new Item('foo', 0, 6)]
     update_quality()
